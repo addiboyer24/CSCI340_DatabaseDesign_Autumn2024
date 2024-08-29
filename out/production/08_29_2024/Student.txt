@@ -1,0 +1,3 @@
+StudentId,StudentName,DateOfBirth,Age,Email
+1,Addison Boyer,28,04/25/1996,addison.boyer@umontana.edu
+2,Bob Jones,40,04/25/1996,bob.jones@gmail.com

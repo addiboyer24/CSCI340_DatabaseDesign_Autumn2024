@@ -1,0 +1,312 @@
+1.1
+traditional database applications, in which most of the information that is stored and accessed is either
+textual or numeric.
+
+General Definition of a Database:
+A database is a collection of related data.1 By data, we mean known facts that can
+be recorded and that have implicit meaning. 
+
+ A database has the following implicit properties:
+A database represents some aspect of the real world, sometimes called the
+miniworld or the universe of discourse (UoD). Changes to the miniworld
+are reflected in the database.
+■ A database is a logically coherent collection of data with some inherent
+meaning. A random assortment of data cannot correctly be referred to as a
+database.
+■ A database is designed, built, and populated with data for a specific purpose.
+It has an intended group of users and some preconceived applications in
+which these users are interested.
+
+In other words, a database has some source from which data is derived, some degree
+of interaction with events in the real world, and an audience that is actively inter-
+ested in its contents.
+
+A database can be of any size and complexity.
+Sometimes a web application may use many databases for example Amazon.com.
+
+Generated and maintained manually, or it may be computerized.
+
+A database management system (DBMS) is a computerized system that enables
+users to create and maintain a database. The DBMS is a general-purpose software
+system that facilitates the processes of defining, constructing, manipulating, and
+sharing databases among various users and applications.
+
+Facilitates the process of...
+(DCMS)
+
+Defining a database
+involves specifying the data types, structures, and constraints of the data to be
+stored in the database. The database definition or descriptive information is also
+stored by the DBMS in the form of a database catalog or dictionary; it is called
+meta-data.
+
+Constructing the database is the process of storing the data on some
+storage medium that is controlled by the DBMS.
+
+ Manipulating a database includes
+functions such as querying the database to retrieve specific data, updating the data-
+base to reflect changes in the miniworld, and generating reports from the data.
+
+Sharing a database allows multiple users and programs to access the database
+simultaneously.
+
+Other important functions of a DBMS..
+Protection.
+
+Maintainence.
+
+Together the database and DBMS is the database system.
+
+1.2
+data - 
+file
+data elements (within file)
+data types (of data elements)
+
+Most medium-size and large databases include many types of
+records and have many relationships among the records.
+
+Database manipulation involves querying and updating. Examples of queries are as
+
+Progression of Database Design:
+Requirements specification and
+analysis.
+
+Conceptual design
+
+Logical design
+
+Physical design
+
+1.3
+Database Approach vs. File Approach.
+
+In general downside is each user has their own file, and that is maintained separately by different software applications (leads to unnecessary redundancy).
+
+■ Self-describing nature of a database system
+■ Insulation between programs and data, and data abstraction
+■ Support of multiple views of the data
+■ Sharing of data and multiuser transaction processing
+
+
+■ Self-describing nature of a database system
+
+Database Approach:
+meta-data - information stored in the database catalog about where the data is stored, what types of data, and constraints on the data.
+
+File Approach:
+In traditional file processing, data definition is typically part of the application pro-
+grams themselves. Constructed to work with only one specific database (see FileExample.java, FileExample.txt, etc..).
+
+
+■ Insulation between programs and data, and data abstraction
+
+File Approach:
+Generally changes to the underlying data require(s) changes in the database applications (see FileExample.java, FileExample.txt, etc.. with addition of Address field).
+
+Database Approach:
+The structure of data files is stored in the DBMS catalog separately from the access programs. We call this property program-data independence.
+
+An operation (also called a function or method) is specified in two
+parts. The interface (or signature) of an operation includes the operation name and
+the data types of its arguments (or parameters). The implementation (or method) of
+the operation is specified separately and can be changed without affecting the inter-
+face. User application programs can operate on the data by invoking these opera-
+tions through their names and arguments, regardless of how the operations are
+implemented. This may be termed program-operation independence.
+
+The characteristic that allows program-data independence and program-operation
+independence is called data abstraction.
+
+data model is a type of
+data abstraction that is used to provide this conceptual representation. The data
+model uses logical concepts, such as objects, their properties, and their interrela-
+tionships, that may be easier for most users to understand than computer storage
+concepts. Hence, the data model hides storage and implementation details that are
+not of interest to most database users.
+
+■ Support of multiple views of the data
+A database typically has many types of users, each of whom may require a different
+perspective or view of the database. 
+
+A view may be a subset of the database or it may
+contain virtual data that is derived from the database files but is not explicitly stored.
+
+■ Sharing of data and multiuser transaction processing
+concurrency
+control software to ensure that several users trying to update the same data
+do so in a controlled manner so that the result of the updates is correct (example: withdrawing money from a bank account).
+
+The concept of a transaction has become central to many database applications. A
+transaction is an executing program or process that includes one or more database
+accesses, such as reading or updating of database records. Each transaction is supposed
+to execute a logically correct database access if executed in its entirety without
+interference from other transactions.
+
+Properties of a transaction:
+isolation - each transaction appears to execute in isolation from other transactions (even though they may be happening simultaneously).
+atomicity - all the database operations are successful, or none are successful.
+
+1.4
+Actors on the Scene - people whose jobs involve the day-to-day use
+of a large database
+
+Database Administrators (DBA's: Administering these resources)
+Database System - (Primary) Database, (Secondary) DBMS & related software
+Duties:
+Authorizing Access
+Coordinating and Monitoring it's use
+
+Example Problems:
+Security Breaches
+System Response Time (Performance)
+
+Assisted by a team in larger organizations (see roles below).
+
+Database Designers (you!)
+Duties:
+Identifying the data to be stored, choosing appropriate structures to represent and store the data.
+- Requirements gathering
+- Conceptual design
+- Logical design
+- Physical design
+
+Final database design must be capable of supporting the requirements of all user groups.
+
+End Users (Jobs require access to the database for querying, updating, and generating reports):
+- Causal: occasionally access the database, but they may need different
+information each time. They use a sophisticated database query interface
+
+- Naive: Usually access the database via standard types of queries and updates called canned transactions (carefully programmed and tested).
+via application interface (i.e. Mobile App -> Api -> Database).
+
+Sophisticated:
+familiarize themselves with the facilities of the database (engineers, scientists, bussiness analysts)
+
+Standalone users:
+personal databases, menu based or graphics based interfaces.
+
+System Analysts and Application Programmers:
+Determine requirements of end users and develop specifications (naive or parametric users).
+
+Application Programmers (software developers, or software engineers):
+Implement these specifications as programs; test, debug, document, and maintain.
+Should be familiar with the full range of capabilities provided by the DBMS.
+
+1.5
+Behind the Scenes:
+- DBMS system designers and implementers (the software engineers of the DBMS software).
+- Tool developers (facilitate database modeling and design, performance monitoring, GUI's, prototyping, simulation, and test data generation)
+- Running and maintainence of software and hardware required for the database system.
+
+1.6
+Advantages of DBMS approach:
+Controlling Redundancy:
+redundancy - storing the data multiple times leads to problems.
+- have to perform the single logical update multiple times (duplication of effort)
+- wasted storage space (more serious for larger databases)
+- inconsistent data (either doesn't happen, or happens incorrectly i.e. fat fingered)
+
+Solution: storing the same piece of data in the database (data normalization)
+
+controlled redundancy (improve performance): don't have to search multiple files to collect the data if it's commonly accessed together (there is cost of joining multiple files together).
+This is known as denormalization.
+The DBMS will help us to control the redundancy.
+
+Restricting Unauthorized Access:
+Security and authorization subsystem, DBA uses to create accounts and enforce restrictions.
+
+Provides Persistent Storage:
+Java class, one the program terminates the data values that were stored in memory disappear.
+
+Providing Storage Structures and Search
+Techniques for Efficient Query Processing
+efficiently executing queries and
+updates (SLA service level agreement)
+
+indexes - Auxillary files
+
+buffering and caching - maintains part of the main database in main memory buffers.
+query processing and optimization - think of this as the compiler (choses the correct execution plan for your query i.e. which indexes to use, when to use them, etc..)
+
+Providing Backup and Recovery:
+Ability to recover from software or hardware failures.
+for example (complex update transaction fails halfway through)
+Disk failure (Physical)
+
+Provides Multiple User Interfaces:
+GUI for medium users
+Query languages (SQL) - more advanced users
+
+Representing Complex Relationships among Data
+Does this in a way that reduces data redundancy, improves consistency, and performance.
+
+Enforcing Integrity Constraints:
+DBMS provides capabilities for defining and enforcing integrity constraints
+e.g. specifying a data type (i.e. int, string, etc..)
+
+referential integrity i.e. one record in this file must refer to at least one valid record in this other table.
+key constraint, uniqueness constraint - each record must be uniquely identifiable.
+
+bussiness rules - can't necessarily be enforced by the DBMS.
+
+inherent rules - rules that pertain to a specific data model.
+
+Permitting Inferencing and Actions
+Using Rules and Triggers
+
+More involved procedures to enforce rules are popularly called stored procedures.
+
+Additional Implications:
+Enforcing Standards:
+DBA's can enforce because databases are centralized over distributed file approach across users.
+
+Reduced Application Development Time:
+Don't have to go through defining the data model, relationships, etc.. each time, but can augment the existing model, and create application interfaces more easily.
+
+Flexibility:
+program - data independence.  DBMS supports many changes to the database without having to make changes to the data, or applications utilizing the data.
+
+Availability of Up to Date Information:
+DBMS makes database available to all users.  Essential for many transaction based systems.
+
+Scalability:
+Buy bigger, and higher performing servers and software instead of individual lower performance equipment.
+Reduces the overall cost of operation and management.
+
+1.7 (Omitted, read it if you're curious)
+
+1.8
+When not to use a DBMS:
+- High overhead cost 
+i.e. initial investment for hardware, sofware, and training
+
+- generality that DBMS provides for defining and processing data i.e.
+overhead for providing security, concurrency control, recovery, and integrity functions
+
+When to use a file based system:
+- Too simple
+- Short timelines
+- embedded systems with storage capacity limits
+- single user systems (remember one of the capabilities of DBMS is sharing)
+
+Summary:
+In this chapter we defined a database as a collection of related data, where data
+means recorded facts. A typical database represents some aspect of the real world
+and is used for specific purposes by one or more groups of users. A DBMS is a
+generalized software package for implementing and maintaining a computerized
+database. The database and software together form a database system. We identified
+several characteristics that distinguish the database approach from traditional
+file-processing applications, and we discussed the main categories of database
+users, or the actors on the scene. We noted that in addition to database users, there
+are several categories of support personnel, or workers behind the scene, in a database
+environment.
+
+We presented a list of capabilities that should be provided by the DBMS software to
+the DBA, database designers, and end users to help them design, administer, and
+use a database. Then we gave a brief historical perspective on the evolution of database
+applications. We pointed out the recent rapid growth of the amounts and types
+of data that must be stored in databases, and we discussed the emergence of new
+systems for handling “big data” applications. Finally, we discussed the overhead
+costs of using a DBMS and discussed some situations in which it may not be advantageous
+to use one.
