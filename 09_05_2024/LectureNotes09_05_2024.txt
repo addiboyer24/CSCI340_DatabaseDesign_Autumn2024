@@ -1,0 +1,339 @@
+Finish Up Content From Last Time.
+
+2.1
+Moores Law:
+The concept of data storage density is closely related to Moore's Law, which predicts that the number of transistors on a microchip will double every two years. As a result, the amount of data that can be stored on a single device has increased exponentially over the years.
+
+Client Server Architecture:
+
+The recent growth in the amount of data requiring storage has led to database systems
+with distributed architectures comprised of thousands of computers that manage
+the data stores.
+
+Horizontal Scalability vs. Vertical Scalability.
+
+In a basic client/server DBMS architecture, the system functionality is distributed
+between two types of modules.
+
+- A client module is typically designed so that it
+will run on a mobile device, user workstation, or personal computer (PC). Typi-
+cally, application programs and user interfaces that access the database run in the
+client module. Hence, the client module handles user interaction and provides
+the user-friendly interfaces such as apps for mobile devices, or forms- or menu-
+based GUIs (graphical user interfaces) for PCs
+
+- a server module, typically handles data storage, access, search, and other func-
+tions.
+
+Abstraction in General:
+
+- Data abstraction generally refers to the suppression of
+details of data organization and storage, and the highlighting of the essential fea-
+tures for an improved understanding of data.
+People can percieve the data at the level that they want (remind class of the types of users).
+
+- A data model—a collection of concepts that
+can be used to describe the structure of a database—provides the necessary means
+to achieve this abstraction. 2 By structure of a database we mean the data types, rela-
+tionships, and constraints that apply to the data. Most data models also include a
+set of basic operations for specifying retrievals and updates on the database.
+
+- In the basic relational data
+model, there is a provision to attach behavior to the relations in the form of persis-
+tent stored modules, popularly known as stored procedures (see Chapter 10)
+
+2.1.1
+Types of data models.
+
+High-level or conceptual data models provide concepts that are close to the way many users per-
+ceive data, whereas 
+
+- low-level or physical data models provide concepts that describe
+the details of how data is stored on the computer storage media, typically magnetic
+disks. Concepts provided by physical data models are generally meant for computer
+specialists, not for end users. Between these two extremes is a class of 
+
+- representational (or implementation) data models which provide concepts that may be easily
+understood by end users but that are not too far removed from the way data is orga-
+nized in computer storage.
+
+Conceptual Data Models (the different parts)
+- entity represents a real-world object or concept, such as an employee or a project
+from the miniworld that is described in the database.
+
+- attribute represents some property of interest that further describes an entity, such as the employee’s name or
+salary.
+
+- relationship among two or more entities represents an association among
+the entities, for example, a works-on relationship between an employee and a
+project.
+
+Next chapter we introduce the entity relationship model - popular high level conceptual model.
+
+Representational Data Models (i.e. the relational data model) - i.e. relational schema (product of this modeling excersise).
+Representational data models represent data by using record structures and hence are
+sometimes called record-based data models.
+
+We can regard the object data model as an example of a new family of higher-level
+implementation data models that are closer to conceptual data models (UML).
+
+Physical Data Model
+Physical data models describe how data is stored as files in the computer by repre-
+senting information such as record formats, record orderings, and access paths. An
+
+access path is a search structure that makes the search for particular database
+records efficient, such as indexing or hashing (remember what an index is).
+
+Another class of data models is known as self-describing data models.
+These models include XML (see Chapter 12) as well as many of
+the key-value stores and NOSQL systems.
+
+2.1.2
+database schema - the description of the database.
+which is specified during database design and is not expected
+to change frequently.
+
+schema diagram - displayed schema (see page 34, Figure 2.1)
+
+schema construct - We call each object in the schema—such as STUDENT or COURSE
+
+database state or snapshot (occurance or instance) - The data in the database at a particular moment in time
+
+The distinction between database schema and database state is very important.
+When we define a new database, we specify its database schema only to the
+DBMS. At this point, the corresponding database state is the empty state with
+no data. We get the initial state of the database when the database is first
+populated or loaded with the initial data. From then on, every time an update
+operation is applied to the database, we get another database state. At any point
+in time, the database has a current state.
+
+valid state—that is, a state that
+satisfies the structure and constraints specified in the schema - responsibility of the DBMS.
+Hence, specify-
+ing a correct schema to the DBMS is extremely important and the schema must
+be designed with utmost care.
+
+The schema
+is sometimes called the intension, and a database state is called an extension of
+the schema.
+
+schema evolution - hanges occasionally need to be applied to the schema as
+the application requirements change.
+
+2.2 Three-Schema Architecture and Data Independence.
+Three of the four important characteristics of the database approach, listed in
+Section 1.3, are (1) use of a catalog to store the database description (schema) so
+as to make it self-describing, (2) insulation of programs and data (program-data
+and program-operation independence), and (3) support of multiple user views.
+
+The goal:
+- to separate the user applications from the physical database. In this architecture, schemas can
+be defined at the following three levels:
+
+- (The internal level) has an internal schema, which describes the physical
+storage structure of the database. The internal schema uses a physical data
+model and describes the complete details of data storage and access paths for
+the database.
+
+- (The conceptual level) has a conceptual schema, which describes the structure
+of the whole database for a community of users. The conceptual schema hides
+the details of physical storage structures and concentrates on describing enti-
+ties, data types, relationships, user operations, and constraints. Usually, a rep-
+resentational data model is used to describe the conceptual schema when a
+database system is implemented. This implementation conceptual schema is
+often based on a conceptual schema design in a high-level data model.
+
+- (The external or view level) includes a number of external schemas or user
+views. Each external schema describes the part of the database that a partic-
+ular user group is interested in and hides the rest of the database from that
+user group. As in the previous level, each external schema is typically imple-
+mented using a representational data model, possibly based on an external
+schema design in a high-level conceptual data model.
+
+Notice: 
+- that the three schemas are only descriptions of data; the actual data is stored
+at the physical level only.
+
+mappings - The processes of transforming
+requests and results between levels are called 
+
+data independence - which can be defined as the capacity to change the schema at one
+level of a database system without having to change the schema at the next higher
+level.
+
+Logical data independence is the capacity to change the conceptual schema
+without having to change external schemas or application programs.
+
+Physical data independence is the capacity to change the internal schema
+without having to change the conceptual schema. Hence, the external sche-
+mas need not be changed as well. For example, providing an access
+path to improve retrieval speed of SECTION records (i.e. an index).
+
+Harder to achieve Logical data independence.
+
+2.3
+
+2.3.1
+data definition language (DDL) - is used by the DBA and by database designers to define both schemas. The
+DBMS will have a DDL compiler whose function is to process DDL statements in order to identify descriptions of the schema constructs and to store the schema description in the DBMS catalog.
+
+storage definition language (SDL) - is used to specify the internal
+schema. The mappings between the two schemas may be specified in either one of
+these languages. In most relational DBMSs today, there is no specific language that
+performs the role of SDL. Instead, the internal schema is specified by a combination
+of functions, parameters, and specifications related to storage of files. These permit
+the DBA staff to control indexing choices and mapping of data to storage.
+
+view definition language (VDL) - to specify user views and their mappings to the conceptual
+schema, but in most DBMSs the DDL is used to define both conceptual and external
+schemas. In relational DBMSs, SQL is used in the role of VDL to define user or
+application views as results of predefined queries.
+
+data manipulation language (DML) - Once the database schemas are compiled and the database is populated with data, users must have some means to manipulate the database. Typical manipulations
+include retrieval, insertion, deletion, and modification of the data.
+
+A low-level or procedural DML must be embedded in a general-purpose programming
+language. This type of DML typically retrieves individual records or objects from
+the database and processes each separately. Therefore, it needs to use programming
+language constructs, such as looping, to retrieve and process each record from a set
+of records. Low-level DMLs are also called record-at-a-time DMLs.
+
+set-at-a-time or set-oriented DMLs - High-level DMLs, such as SQL, can specify and retrieve many records in
+a single DML statement; which data to retrive as apposed to how - called declarative language.
+
+host language - Whenever DML commands, whether high level or low level, are embedded in a
+general-purpose programming language
+
+DML is called the data sublanguage.
+
+query language - a high-level DML used in a standalone interactive manner.
+
+Casual end users typically use a high-level query language to specify their requests,
+whereas programmers use the DML in its embedded form.
+
+2.3.2
+Menu-based Interfaces for Web Clients or Browsing. These interfaces pres-
+ent the user with lists of options (called menus) that lead the user through the for-
+mulation of a request. Menus do away with the need to memorize the specific
+commands and syntax of a query language; rather, the query is composed step-by-
+step by picking options from a menu that is displayed by the system. Pull-down
+menus are a very popular technique in Web-based user interfaces. They are also
+often used in browsing interfaces, which allow a user to look through the contents
+of a database in an exploratory and unstructured manner.
+
+Apps for Mobile Devices
+
+Forms-based Interfaces - 
+forms specification languages - 
+
+Graphical User Interfaces - 
+Shows a diagram of the data, allows you to manipulate it.
+
+Natural Language Interfaces - 
+ChatGpt, Cognitive Search, etc..
+
+Speech Input and Output - Similar to natural language interface with feedback to the user in form of speech as apposed to data representation.  IVR Systems (i.e. twilio).
+
+Interfaces for Parametric Users - hotkeys, common functions (i.e. bank teller).
+
+Interfaces for the DBA. Most database systems contain privileged commands
+that can be used only by the DBA staff. These include commands for creating
+accounts, setting system parameters, granting account authorization, changing a
+schema, and reorganizing the storage structures of a database.
+
+2.4
+
+query compiler -  queries are parsed and validated for correctness of the query syntax, the
+names of files and data elements, and so on.
+
+query optimizer - is
+concerned with the rearrangement and possible reordering of operations, elimina-
+tion of redundancies, and use of efficient search algorithms during execution.
+
+precompiler extracts DML commands
+from an application program written in a host programming language. 
+
+runtime database processor executes (1) the
+privileged commands, (2) the executable query plans, and (3) the canned transac-
+tions with runtime parameters. It works with the system catalog and may update it
+with statistics. It also works with the stored data manager, which in turn uses basic
+operating system services for carrying out low-level input/output (read/write)
+operations between the disk and main memory. 
+
+client computer running DBMS client software and the latter is
+called the database server. In many cases, the client accesses a middle computer,
+called the application server, which in turn accesses the database server.
+
+Client Server Architecture - A client in this framework is typically a user machine that pro-
+vides user interface capabilities and local processing. When a client requires access
+to additional functionality—such as database access—that does not exist at the cli-
+ent, it connects to a server that provides the needed functionality. 
+
+A server is a sys-
+tem containing both hardware and software that can provide services to the client
+machines, such as file access, printing, archiving, or database access
+2.5.3
+
+SQL server
+query and transac-
+tion functionality related to SQL processing remained on the server side. In
+such an architecture, the server is often called a query server or transaction
+server because it provides these two functionalities.
+
+Two Tier Architecture.
+Connectivity (ODBC) provides an application programming interface (API),
+which allows client-side programs to call the DBMS, as long as both client and
+server machines have the necessary software installed.
+
+Three Tier Architecture.
+This intermediate layer or middle tier is called the application server or the Web
+server, depending on the application. This server plays an intermediary role by
+running application programs and storing business rules (procedures or con-
+straints) that are used to access data from the database server. It can also improve
+database security by checking a client’s credentials before forwarding a request to
+the database server. Clients contain user interfaces and Web browsers. The inter-
+mediate server accepts requests from the client, processes the request and sends
+database queries and commands to the database server, and then acts as a conduit
+for passing (partially) processed data from the database server to the clients, where
+it may be processed further and filtered to be presented to the users. Thus, the user
+interface, application rules, and data access act as the three tiers. Figure 2.7(b) shows
+another view of the three-tier architecture used by database and other application
+package vendors. The presentation layer displays information to the user and allows
+data entry. The business logic layer handles intermediate rules and constraints before
+data is passed up to the user or down to the DBMS. The bottom layer includes all
+data management services. The middle layer can also act as a Web server, which
+retrieves query results from the database server and formats them into dynamic
+Web pages that are viewed by the Web browser at the client side. The client machine
+is typically a PC or mobile device connected to the Web.
+
+Classification of Database
+Management Systems
+
+determined by the data model on
+which the DBMS is based
+
+relational data model, and the systems based on this model are
+known as SQL systems. 
+
+object data model - key-value storage systems and NOSQL systems, use vari-
+ous data models: document-based, graph-based, column-based, and key-value
+data models. 
+
+also by the number of users
+Single user systems
+Multiuser system
+
+Third the number of sites the database is distributed
+centralized - single site
+distributed - multiple sites
+
+fourth:
+Homogeneous - same dbms software at each site.
+Heterogeneous - different dbms software at each site.
+
+fifth - cost
+Open source (free)
+Proprietary (cost money)
+
+ The relational data model represents a database as a collection of tables,
+where each table can be stored as a separate file. 
