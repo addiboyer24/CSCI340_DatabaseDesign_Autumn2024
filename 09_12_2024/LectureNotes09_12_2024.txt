@@ -1,0 +1,182 @@
+Introduction:
+Conceptual modeling - very imporant phase for successful database application*
+
+database application - database and associated programs that implement the database queries and updates.
+
+Traditionally,
+the design and testing of application programs has been considered to be part of
+software engineering rather than database design. In many software design tools, the
+database design methodologies and software engineering methodologies are inter-
+twined since these activities are strongly related.
+
+entity–relationship (ER) model, which is a popular
+high-level conceptual data model.
+
+We also present the diagrammatic notation associated
+with the ER model, known as ER diagrams.
+
+Unified Modeling Language (UML) - i.e. class diagrams (operations on objects are specified, in addition to
+specifying the database schema structure. Operations can be used to specify the
+functional requirements during database design)
+
+3.1
+Database Design Process:
+
+requirements collection and analysis
+Database designers interview prospective database users to understand and document their...
+
+data requirements - concisely written set of users’ require-
+ments. These requirements should be specified in as detailed and complete a form
+as possible.
+
+functional requirements - user-defined operations (or transactions) that will be applied to the database, including
+both retrievals and updates.
+
+conceptual design - product is the the conceptual schema.
+concise description of
+the data requirements of the users and includes detailed descriptions of the entity
+types, relationships, and constraints; these are expressed using the concepts pro-
+vided by the high-level data model.
+
+- Usually easier to communicate to non-technical users because they don't include implementation details.
+- Used as a reference to ensure all users data requirements are met (also that they don't conflict).
+- You should be able to confirm the conceptual schema meets all the identified functional requirements (can make changes to this design if that's not the case).
+
+logical design (data model mapping) - the conceptual schema is
+transformed from the high-level data model into the implementation data model.  Comercial DBMS software is used to create the implementation data model, such as the relational (SQL) model.
+
+physical design - internal storage struc-
+tures, file organizations, indexes, access paths, and physical design parameters for
+the database files are specified (in parallel, application programs are designed and implemented as database transactions corresponding to the high level transaction specifications.
+
+3.2 - Database Sample
+Example data / functional requirements:
+The company is organized into departments. Each department has a unique
+name, a unique number, and a particular employee who manages the depart-
+ment. We keep track of the start date when that employee began managing
+the department. A department may have several locations.
+■ A department controls a number of projects, each of which has a unique
+name, a unique number, and a single location.
+■ The database will store each employee’s name, Social Security number, 2
+address, salary, sex (gender), and birth date. An employee is assigned to one
+department, but may work on several projects, which are not necessarily
+controlled by the same department. It is required to keep track of the cur-
+rent number of hours per week that an employee works on each project, as
+well as the direct supervisor of each employee (who is another employee).
+■ The database will keep track of the dependents of each employee for insur-
+ance purposes, including each dependent’s first name, sex, birth date, and
+relationship to the employee.
+
+3.3
+The ER Model:
+entity - thing or object in the real world with an independent existence.
+physical existence - i.e. car, house, employee
+conceptual existence - company, job, university course
+
+3.3.1
+attributes - each entity has these, and they're the
+particular properties that describe it (entity) - The attribute values that describe each
+entity become a major part of the data stored in the database.
+difference between attributes and attribute values*
+
+Types of Attributes:
+Several types of attributes occur in the ER model: simple versus composite, single-
+valued versus multivalued, and stored versus derived. First we define these attribute
+types and illustrate their use via examples. Then we discuss the concept of a NULL
+value for an attribute.
+
+Composite versus Simple (Atomic) Attributes - 
+- Composite attributes - can be divided into smaller subparts, which represent more basic attributes with independent meanings.
+
+The value
+of a composite attribute is the concatenation of the values of its component simple
+attributes.
+
+Composite attributes are useful to model situations in which a user sometimes
+refers to the composite attribute as a unit but at other times refers specifically to its
+
+components. If the composite attribute is referenced only as a whole, there is no
+need to subdivide it into component attributes. For example, if there is no need to
+refer to the individual components of an address (Zip Code, street, and so on), then
+the whole address can be designated as a simple attribute.
+
+- simple or atomic attributes -  Attributes that are not divisible.
+
+Single-Valued versus Multivalued Attributes:
+
+- single-valued - single
+value for a particular entity;
+
+- multivalued -  can have different numbers of values for the attribute.
+may have upper and lower bounds to constrain the number of values allowed for each individual entity.
+
+Stored versus Derived Attributes:
+
+derived attribute - the value of the attribute can be determined one or many other attributes that are related, related entities, etc.. i.e. age is derivable from birth date (and of course today's date).
+
+stored attribute - given an explicit value that's not dependent on another attribute.
+
+NULL Values:
+Used in two cases - 
+does not have an applicable value for an attribute.
+do not know the value of an attribute for a particular attribute.
+two cases
+- attribute value exists, but is missing
+- not known whether the attribute value exists
+* don't make null mean something functionally other than those two * 
+
+Complex Attributes:
+
+complex attributes - Example (Address Phone)
+
+{Address_phone( {Phone(Area_code,Phone_number)},Address(Street_address
+(Number,Street,Apartment_number),City,State,Zip) )}
+
+
+3.3.2
+Entity Types, Entity Sets, and Value Sets:
+entity type - defines a collection (or set) of entities that have the same attributes.
+
+entity set or entity collection - The collection of all entities of a particular entity type in the database at any point in time.
+
+the entity set is usually referred to using the same name as the entity type.
+
+Representation in the ER Model - 
+
+An entity type is represented in ER diagrams 5 (see Figure 3.2) as a rectangular box
+enclosing the entity type name.
+
+Attribute names are enclosed in ovals and are
+attached to their entity type by straight lines.
+
+Composite attributes are attached to
+their component attributes by straight lines.
+
+Multivalued attributes are displayed in
+double ovals.
+
+
+
+Key Attributes of an Entity Type:
+key or uniqueness constraint on attributes - 
+
+key attribute(s) - An entity type usually
+has one or more attributes whose values are distinct for each individual entity in the
+entity set (values can be used to
+identify each entity uniquely).
+
+Composite keys - Notice that such a composite key must be minimal; that is, all
+component attributes must be included in the composite attribute to have the
+uniqueness property.
+
+Representation in the ER Model:
+each key attribute has its name underlined inside the oval.
+
+Specifying that an attribute is a key of an entity type means that the preceding
+uniqueness property must hold for every entity set of the entity type.
+How many sets among n things (without ordering)? (2^n) - bonus points for this one*
+
+In our diagrammatic notation, if two attributes are underlined separately, then each
+is a key on its own. Unlike the relational model (see Section 5.2.2), there is no con-
+cept of primary key in the ER model that we present here; the primary key will be
+chosen during mapping to a relational schema (see Chapter 9).
