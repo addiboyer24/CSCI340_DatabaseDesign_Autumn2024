@@ -1,0 +1,266 @@
+Model relationship between Employee and Department from last time to review concepts covered in chapter 3.
+
+■ The company is organized into departments. Each department has a unique
+name, a unique number, and a particular employee who manages the department.
+We keep track of the start date when that employee began managing
+the department. A department may have several locations.
+■ A department controls a number of projects, each of which has a unique
+name, a unique number, and a single location.
+■ The database will store each employee’s name, Social Security number,
+address, salary, sex (gender), and birth date. An employee is assigned to one
+department, but may work on several projects, which are not necessarily
+controlled by the same department. It is required to keep track of the current
+number of hours per week that an employee works on each project, as
+well as the direct supervisor of each employee (who is another employee).
+■ The database will keep track of the dependents of each employee for insurance
+purposes, including each dependent’s first name, sex, birth date, and
+relationship to the employee.
+
+Once we have this change to use Min max notation*
+
+
+3.7.4 Alternative Notations for ER Diagrams
+min max notation:
+This notation
+involves associating a pair of integer numbers (min, max) with each participation
+of an entity type E in a relationship type R, where 0 ≤ min ≤ max and max ≥ 1. The
+numbers mean that for each entity e in E, e must participate in at least min and at
+most max relationship instances in R at any point in time. In this method,
+min = 0 implies partial participation, whereas min > 0 implies total participation.
+
+The (min, max) notation is more precise, and we
+can use it to specify some structural constraints for relationship types of higher
+degree.
+
+
+3.8 UML Diagrams
+Anatomy of a UML Diagram
+ a class (similar to an entity type in ER) is displayed as a box
+(see Figure 3.16) that includes three sections: The top section gives the class name
+(similar to entity type name); the middle section includes the attributes; and the
+last section includes operations that can be applied to individual objects (similar to
+individual entities in an entity set) of the class.
+
+The designer can optionally specify the domain (or
+data type) of an attribute if desired, by placing a colon (:) followed by the domain
+name or description, as illustrated by the Name, Sex, and Bdate attributes
+of EMPLOYEE in Figure 3.16. A composite attribute is modeled as a
+structured domain, as illustrated by the Name attribute of EMPLOYEE. A multival-
+ued attribute will generally be modeled as a separate class, as illustrated by the
+LOCATION class in Figure 3.16.
+
+3.9
+Relationship Types of Degree
+Higher than Two
+
+Recall:
+degree of a relationship type -  number of participating entity types.
+
+binary - degree 2
+ternary - degree 3
+
+Recall that the relationship set of SUPPLY is a set of relationship
+instances (s, j, p), where the meaning is that s is a SUPPLIER who is currently
+supplying a PART p to a PROJECT j. In general, a relationship type R of degree n will
+have n edges in an ER diagram, one connecting R to each participating entity type.
+
+In general, a ternary relationship type represents different
+information than do three binary relationship types.
+
+Although in general three binary relationships cannot replace a ternary relationship,
+they may do so under certain additional constraints*
+
+Some database design tools are based on variations of the ER model that permit
+only binary relationships. In this case, a ternary relationship such as SUPPLY must
+be represented as a weak entity type, with no partial key and with three identifying
+relationships. The three participating entity types SUPPLIER, PART, and PROJECT
+are together the owner entity types (see Figure 3.17(c)).
+
+Class excersise:
+The university is organized into colleges (COLLEGE), and each college has a
+unique name (CName), a main office (COffice) and phone (CPhone), and a
+particular faculty member who is dean of the college. Each college adminis-
+ters a number of academic departments (DEPT). Each department has a
+unique name (DName), a unique code number (DCode), a main office
+(DOffice) and phone (DPhone), and a particular faculty member who chairs
+the department. We keep track of the start date (CStartDate) when that fac-
+ulty member began chairing the department.
+
+Min max notation: go over this* figure out in the textbook where this is.
+
+Chapter 4 - The Enhanced Entity–Relationship
+(EER) Model
+
+4.1 - Subclasses, Superclasses, and Inheritance
+
+- Recall: in chapter 3 the name of an entity type is
+used to represent both a type of entity and the entity set or collection of entities of that
+type that exist in the database.
+
+- In many cases an
+entity type has numerous subgroupings or subtypes of its entities that are meaningful
+and need to be represented explicitly because of their significance to the database
+application.
+
+- e.g. Employee entity type may be distinguished further into SECRETARY, ENGINEER, MANAGER, TECHNICIAN, SALARIED_EMPLOYEE, HOURLY_EMPLOYEE, etc..
+
+- simply stated, every entity that is apart of one of the subgroups is also an EMPLOYEE*
+
+- The set or
+collection of entities in each of the latter groupings is a subset of the entities that
+belong to the EMPLOYEE entity set, meaning that every entity that is a member of
+one of these subgroupings is also an employee.
+
+- each of these subgroupings is called a subclass or subtype of the employee entity type.
+EMPLOYEE entity type is called the superclass or supertype.
+
+- We call the relationship between a superclass and any one of its subclasses a
+superclass/subclass or supertype/subtype or simply class/subclass relationship.
+
+- An entity cannot exist in the database merely by being a member of a subclass; it
+must also be a member of the superclass. Such an entity can be included optionally
+as a member of any number of subclasses.
+
+- Hence, the subclass member is the same as the entity in the superclass, but in a
+distinct specific role.
+
+- it is not necessary that every entity in a
+superclass is a member of some subclass.
+
+type inheritance:
+- We say that an entity that is a member of a subclass inherits all the attributes of
+the entity as a member of the superclass. The entity also inherits all the relationships
+in which the superclass participates. Notice that a subclass, with its own specific (or
+local) attributes and relationships together with all the attributes and relationships it
+inherits from the superclass, can be considered an entity type in its own right.
+
+4.2 Specialization and Generalization
+4.2.1 Specialization
+Specialization is the process of defining a set of subclasses of an entity type; this
+entity type is called the superclass of the specialization.
+
+
+Attributes of subclasses.
+These are called specific (or local) attributes of
+the subclass.
+
+The set of subclasses that
+forms a specialization is defined on the basis of some distinguishing characteristic
+of the entities in the superclass. For example, the set of subclasses {SECRETARY,
+ENGINEER, TECHNICIAN} is a specialization of the superclass EMPLOYEE that distinguishes
+among employee entities based on the job type of each employee.
+We may have several specializations of the same entity type based on different
+distinguishing characteristics. For example, another specialization of the
+EMPLOYEE entity type may yield the set of subclasses {SALARIED_EMPLOYEE,
+HOURLY_EMPLOYEE}; this specialization distinguishes among employees based on
+the method of pay.
+
+How to represent on the EER diagram?
+Figure 4.1 shows how we represent a specialization diagrammatically in an EER
+diagram. The subclasses that define a specialization are attached by lines to a circle
+that represents the specialization, which is connected in turn to the superclass. The
+subset symbol on each line connecting a subclass to the circle indicates the direction
+of the superclass/subclass relationship.
+
+Why include these in our diagram (2 reasons)?
+- There are two main reasons for including class/subclass relationships and special-
+izations. The first is that certain attributes may apply to some but not all entities of
+the superclass entity type. A subclass is defined in order to group the entities to
+which these attributes apply. The members of the subclass may still share the
+majority of their attributes with the other members of the superclass.
+
+- The second reason for using subclasses is that some relationship types may be par-
+ticipated in only by entities that are members of the subclass.
+
+4.2.2 Generalization
+
+We use the term generalization to refer to the pro-
+cess of defining a generalized entity type from the given entity types.
+
+e.g., Car and Truck generalize into Vehicle.
+generalization process can be viewed as being functionally the
+inverse of the specialization process; we can view {CAR, TRUCK} as a specialization
+of VEHICLE rather than viewing VEHICLE as a generalization of CAR and TRUCK.
+
+So far we have introduced the concepts of subclasses and superclass/subclass rela-
+tionships, as well as the specialization and generalization processes. In general, a
+superclass or subclass represents a collection of entities of the same type and hence
+also describes an entity type; that is why superclasses and subclasses are all shown in
+rectangles in EER diagrams, like entity types.
+
+4.3 Constraints and Characteristics
+of Specialization and Generalization
+Hierarchies
+
+attribute defined vs. user defined specialization
+
+In some specializations we can determine exactly the entities that will become
+members of each subclass by placing a condition on the value of some attribute of
+the superclass. Such subclasses are called predicate-defined (or condition-defined)
+subclasses. For example, if the EMPLOYEE entity type has an attribute Job_type, as
+shown in Figure 4.4, we can specify the condition of membership in the
+SECRETARY subclass by the condition (Job_type = ‘Secretary’), which we call the
+defining predicate of the subclass. This condition is a constraint specifying that
+exactly those entities of the EMPLOYEE entity type whose attribute value for Job_type
+is ‘Secretary’ belong to the subclass. We display a predicate-defined subclass by
+writing the predicate condition next to the line that connects the subclass to the
+specialization circle.
+
+- If all subclasses in a specialization have their membership condition on the same
+attribute of the superclass, the specialization itself is called an attribute-defined
+specialization, and the attribute is called the defining attribute of the special-
+ization.
+
+- When we do not have a condition for determining membership in a subclass, the
+subclass is called user-defined. Membership in such a subclass is determined by the
+database users when they apply the operation to add an entity to the subclass; hence,
+membership is specified individually for each entity by the user, not by any condition
+that may be evaluated automatically.
+
+disjointness constraint - which specifies that the subclasses of the specialization must be disjoint
+sets.
+A specialization that is attribute-defined implies the disjointness
+constraint (if the attribute used to define the membership predicate is singlevalued).
+
+This means that an entity can be a member of at most one of the subclasses of
+the specialization.
+
+The d notation also applies to user-defined subclasses of a specialization that must be
+disjoint.
+
+If the subclasses are not constrained to be disjoint, their sets of entities may be overlapping; that is, the same (real-world) entity may be a member of more
+than one subclass of the specialization.
+
+Completeness constraint:
+- The second constraint on specialization is called the completeness (or totalness)
+constraint, which may be total or partial. A total specialization constraint specifies
+that every entity in the superclass must be a member of at least one subclass
+in the specialization.
+
+Notice that the disjointness and completeness constraints are independent. Hence,
+we have the following four possible constraints on a specialization:
+■ Disjoint, total
+■ Disjoint, partial
+■ Overlapping, total
+■ Overlapping, partial
+
+In general, a superclass that was identified through
+the generalization process usually is total, because the superclass is derived from the
+subclasses and hence contains only the entities that are in the subclasses.
+
+Certain insertion and deletion rules apply to specialization (and generalization) as a
+consequence of the constraints specified earlier. Some of these rules are as follows:
+■ Deleting an entity from a superclass implies that it is automatically deleted
+from all the subclasses to which it belongs.
+
+■ Inserting an entity in a superclass implies that the entity is mandatorily
+inserted in all predicate-defined (or attribute-defined) subclasses for which
+the entity satisfies the defining predicate.
+■ Inserting an entity in a superclass of a total specialization implies that
+the entity is mandatorily inserted in at least one of the subclasses of the
+specialization.
+
+The reader is encouraged to make a complete list of rules for insertions and deletions
+for the various types of specializations.
+
+Coding Excersise - let's program the employee specialization in Java using inheritance.
