@@ -2,12 +2,8 @@ package App.Infrastructure;
 
 import App.Domain.IStudentRepository;
 import App.Domain.Student;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-
-import java.sql.PreparedStatement;
 import java.util.List;
 
 public class StudentRepository implements IStudentRepository {

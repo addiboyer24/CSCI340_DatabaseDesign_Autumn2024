@@ -1,0 +1,239 @@
+Let's diagram these logical data requirements as a class (assume we model relationships as attributes for now):
+
+First:
+Identify the entity types E.
+for each entity type E, identify the attributes A(E).
+
+■ The company is organized into departments. Each department has a unique
+name, a unique number, and a particular employee who manages the depart-
+ment. We keep track of the start date when that employee began managing
+the department. A department may have several locations.
+■ A department controls a number of projects, each of which has a unique
+name, a unique number, and a single location.
+■ The database will store each employee’s name, Social Security number, 2
+address, salary, sex (gender), and birth date. An employee is assigned to one
+department, but may work on several projects, which are not necessarily
+controlled by the same department. It is required to keep track of the cur-
+rent number of hours per week that an employee works on each project, as
+well as the direct supervisor of each employee (who is another employee).
+■ The database will keep track of the dependents of each employee for insur-
+ance purposes, including each dependent’s first name, sex, birth date, and
+relationship to the employee.
+
+Finally, Diagram it out using ER Modeling Techniques:
+
+3.4
+whenever an attribute of one entity type refers to another entity type, some
+relationship exists.
+
+example: the attribute Manager of DEPARTMENT refers to an employee who manages the department.
+
+in the ER model, these references should not
+be represented as attributes but as relationships*
+
+Summary:
+This section is organized as follows: Section 3.4.1 introduces the concepts of rela-
+tionship types, relationship sets, and relationship instances. We define the concepts
+of relationship degree, role names, and recursive relationships in Section 3.4.2, and
+then we discuss structural constraints on relationships—such as cardinality ratios
+and existence dependencies—in Section 3.4.3. Section 3.4.4 shows how relationship
+types can also have attributes.
+
+3.4.1
+- Relationship Types, Sets, and Instances.
+Relationship type (R among n entity types E1, E2, ..., En) - defines a set of associa-
+tions—or a relationship set—among entities from these entity types.
+
+Relationship type, and relationship set are referred to by the same name.
+
+Formally:
+Relationship set R is a set of relationship instances ri, where each ri associates n individual entities (e1, e2, ..., en), and each entity ej in ri is a member of entity set Ej.
+
+Participation:
+Each of the entity types E1, E2, ..., En is said to participate in the relationship Type R.  each individual entity e1, e2, ..., en is said to participate in the relationship instance ri = (e1, e2, ...,en).
+
+Informal definition:
+Informally, each relationship instance ri in R is an association of entities, where the
+association includes exactly one entity from each participating entity type. Each
+such relationship instance ri represents the fact that the entities participating in ri
+are related in some way in the corresponding miniworld situation. 
+
+Representation in ER Diagrams:
+In ER diagrams, relationship types are displayed as diamond-shaped boxes, which
+are connected by straight lines to the rectangular boxes representing the participat-
+ing entity types. The relationship name is displayed in the diamond-shaped box.
+
+3.4.2
+- Relationship Degree, Role Name, and Recursive Relationships.
+Degree of a Relationship Type.
+degree - the number of participating entity types.
+binary - relationship type of degree two.
+ternary - relationship type of degree three.
+relationships can generally be of any degree*
+
+Role Names and Recursive Relationships.
+Each entity type that participates
+in a relationship type plays a particular role in the relationship.
+
+role name - 
+signifies the role that a participating entity from the entity type plays in each relation-
+ship instance, and it helps to explain what the relationship means.
+
+Example:
+For example, in
+the WORKS_FOR relationship type, EMPLOYEE plays the role of employee or worker
+and DEPARTMENT plays the role of department or employer.
+
+Not necessary when each participating entity type is distinct (entity type name can just be used as the role name), only important when the participating entity type is the same* in other words when the same entity type participates more than once in a relationship type (in different roles).  In this case it is essential to define the role name for each participating entity type.
+
+Such relationship types are called recursive relationships, or self referencing relationships.
+
+Example:
+The SUPERVISION relationship type
+relates an employee to a supervisor, where both employee and supervisor entities are
+members of the same EMPLOYEE entity set. Hence, the EMPLOYEE entity type
+participates twice in SUPERVISION: once in the role of supervisor (or boss), and
+once in the role of supervisee (or subordinate). Each relationship instance ri in
+SUPERVISION associates two different employee entities ej and ek, one of which
+plays the role of supervisor and the other the role of supervisee.
+
+3.4.3
+Constraints on Binary Relationship Types:
+have certain constraints that limit the possible combina-
+tions of entities that may participate in the corresponding relationship set. 
+- cardinality ratio and participation.
+
+Cardinality Ratios for Binary Relationships
+cardinality ratio - specifies the maximum number of relationship instances that an entity can participate in.
+1 - single entity
+N - indicates there is no maximum number.
+
+Possible cardinality ratios:
+1:1, 1:N, N:1, M:N
+
+Let's come up with examples for each?
+
+How are they shown on an ER diagram?
+Cardinality ratios for binary relationships are represented on ER diagrams by dis-
+playing 1, M, and N on the diamonds as shown in Figure 3.2. Notice that in this
+notation, we can either specify no maximum (N) or a maximum of one (1) on par-
+ticipation. An alternative notation (see Section 3.7.4) allows the designer to specify
+a specific maximum number on participation, such as 4 or 5.
+
+Participation Constraints and Existence Dependencies.
+participation constraint -  specifies whether the existence of an entity depends on its being related
+to another entity via the relationship type.
+
+This constraint specifies the minimum
+number of relationship instances that each entity can participate in and is some-
+times called the minimum cardinality constraint.
+
+two types (total and partial participation):
+
+total participation - meaning that every entity in the total set of employee
+entities must be related to a department entity via WORKS_FOR. Total participation
+is also called existence dependency.
+
+partial - meaning that some or part of the set of
+employee entities are related to some department entity via MANAGES, but not
+necessarily all.
+
+structural constraints of a relationship type - these two (above) together.
+
+3.4.4
+Attributes of Relationship Types
+- Relationship types, akin to entity types, can possess attributes.
+
+- Examples include adding attributes like "Hours" to track an employee's weekly project commitment in the WORKS_ON relationship type.
+
+- Similarly, attributes like "Start_date" can be included in the MANAGES relationship type to indicate when a manager began managing a department.
+
+- In 1:1 or 1:N relationship types, attributes can be migrated to one of the participating entity types.
+However, in a 1:N relationship type, the attribute can only be migrated to the entity type on the N-side of the relationship.
+
+- The placement of relationship attributes is subjective and depends on the schema designer's discretion.
+For M:N relationship types, certain attributes may be determined by the combination of participating entities and must be specified as relationship attributes.
+
+- For instance, the "Hours" attribute in the WORKS_ON relationship type denotes the number of hours an employee spends on a project, determined by the employee-project combination.
+
+3.5 Weak Entity Types
+
+weak entity types - Entity types that do not have key attributes of their own.
+
+regular entity types (strong entity types) - do have a key attribute.
+
+- How are weak entity types identified then?
+Entities belonging to a weak entity
+type are identified by being related to specific entities from another entity type in com-
+bination with one of their attribute values.
+
+called the..
+Identifying or owner entity type.
+
+Identifying relationship
+relationship type that relates a weak entity type to it's owner.
+
+*Always has a total participation constraint (existence dependency) with respect to it's identifying relationship (can't be identified without an owner entity type).
+
+Not every existence dependency results in a weak entity type*
+
+Example:
+Drivers license doesn't exist without a person (existence dependency), but is itself a strong entity type (as it has it's own key).
+
+partial key - the attribute that can
+uniquely identify weak entities that are related to the same owner entity.
+
+- Representing in an ER Diagram?
+In ER diagrams, both a weak entity type and its identifying relationship are distin-
+guished by surrounding their boxes and diamonds with double lines (see Fig-
+ure 3.2). The partial key attribute is underlined with a dashed or dotted line.
+
+3.7.2 Proper Naming of Schema Constructs
+
+One should choose names that convey, as much as possible, the meanings attached to
+the different constructs in the schema.
+
+Singular names for entity types, rather than plural ones, as entity type name applies to each individual entity belonging to that entity type.
+
+Entity Type and Relationship Type names - all caps (uppercase).
+
+Attribute names - initial letter capitalized.
+
+Role names - lowercase letters.
+
+From a general perspective:
+nouns appearing in the narrative tend to give rise to entity type names, and the
+verbs tend to indicate names of relationship types. Attribute names generally arise
+from additional nouns that describe the nouns corresponding to entity types.
+
+Binary relationship names - make the ER diagram of the schema readable from left to right and from top to bot-
+tom.
+
+3.7.3 - Design Choices for ER Conceptual Design
+
+- Iterative refinement process
+examples:
+- A concept may be first modeled as an attribute and then refined into a rela-
+tionship because it is determined that the attribute is a reference to another
+entity type. It is often the case that a pair of such attributes that are inverses of
+one another are refined into a binary relationship.
+
+- Similarly, an attribute that exists in several entity types may be elevated or
+promoted to an independent entity type. For example, suppose that each
+of several entity types in a UNIVERSITY database, such as STUDENT,
+INSTRUCTOR, and COURSE, has an attribute Department in the
+initial design; the designer may then choose to create an entity type
+DEPARTMENT with a single attribute Dept_name and relate it to the three
+entity types (STUDENT, INSTRUCTOR, and COURSE) via appropriate rela-
+tionships. Other attributes/relationships of DEPARTMENT may be discov-
+ered later.
+
+- An inverse refinement to the previous case may be applied—for example, if
+an entity type DEPARTMENT exists in the initial design with a single attribute
+Dept_name and is related to only one other entity type, STUDENT. In
+this case, DEPARTMENT may be reduced or demoted to an attribute of
+STUDENT.
+
+Java Spring Resources:
+https://www.codecademy.com/learn/learn-java
+https://www.codecademy.com/learn/learn-spring
