@@ -1,0 +1,36 @@
+Parking Mini World:
+
+- A parking company owns many garages throughout various cities in the United States.
+- Each garage is identified by a unique id.
+- The address of the garage including the street, city, state, and zip code must be recorded in the database in order to share with customers via their website.
+- Lastly, the total number of parking spaces in the garage must be recorded, as well as the number of available spaces and occupied spaces at any given time.
+
+- The garage has many Customers.  Customers enter the parking garages to park, and when doing so must take a ticket from the kiosk.
+- Customers are uniquely identified by the code printed on the top of the ticket they recieve when entering the parking garage.
+- For each customer we must keep track of the date and time they entered the garage, and the date and time they exited the garage.
+
+- Each kiosk is uniquely identified by it's mac address.
+- Kiosks can be classified as entrance kiosks or exit kiosks.
+- For each kiosk we must keep track of the ticket capacity and total number of tickets remaining in the kiosk at a given time.
+- A kiosk should not dispense a new ticket if there are no parking spaces available.
+- When the entrance kiosk is low, it must inform the on call attendant to replenish it's tickets.
+- When the tickets are replaced, the total number of tickets should be reset.
+
+- Exit kiosks may accept many forms of payment including cash and card.
+- When a payment is made, a transaction must be recorded which can be used for auditing purposes.
+- A transaction must include the total number of hours / days as well as the rate that was applied for the total, lastly for the transaction we must record the total for the transaction as well as the payment type used.
+- Each cash kiosk must keep track of the total amount of cash within it at a given time.
+
+- The garage has parking rates.
+- Each rate is uniquely identified by a rate identifier.
+- For each parking rate we need to keep track of the rate type (hourly or daily) as well as the rate in US dollars.
+- For each rate we must keep track of the start and end date that the rate will apply.
+
+- When customers leave the garage, they insert the ticket and the exit date/time is recorded (in order to calculate the total amount that is due for the customers ticket).
+- Customers must be able to enter their ticket number on the app, and the app should be able to return them the total amount owed at that time.
+- The total amount owed is the lesser of a given rate type times the total number of hours / days in the garage (All times are rounded up to the nearest hour or day).
+- If a customer loses a ticket, they will be charged a fee.
+
+- Garages can have a single lost ticket fee.  
+- When a ticket is reported as lost, we must record that in the database as a transaction.
+- Once the entrance date time / exit date time is recorded on a ticket it cannot be modified.
