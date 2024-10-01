@@ -1,0 +1,9 @@
+Final Jeopardy:
+
+Model the following logical data requirements with the ER modeling techniques (and best practices).
+
+Projects are uniquely identified by a project id.
+Each project has many tasks, and a given task can be associated to at most one project.
+A task cannot be uniquely identified apart from the project it is associated to.
+Each task has a task identifier which starts at 1 and increases with each successive task on the project (hence the task identifier is not unique across projects).
+Lastly, we must also record the due date of each task that is associated to a project.
