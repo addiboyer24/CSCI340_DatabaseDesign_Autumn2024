@@ -1,0 +1,647 @@
+The Relational Data Model and
+Relational Database Constraints
+
+The relational data model was
+first introduced by Ted Codd of IBM Research in 1970 in a classic paper (Codd,
+1970), and it attracted immediate attention due to its simplicity and mathematical
+foundation. The model uses the concept of a mathematical relation—which looks
+somewhat like a table of values—as its basic building block, and has its theoretical
+basis in set theory and first-order predicate logic.
+
+5.1 Relational Model Concepts
+
+The relational model - represents the database as a collection of relations.
+
+Informally,
+each relation resembles a table of values or, to some extent, a flat file of records.
+
+It is
+called a flat file because each record has a simple linear or flat structure.
+
+Difference between relations and files:
+
+When a relation is thought of as a table of values, each row in the table represents a
+collection of related data values.
+
+A row represents a fact that typically corresponds
+to a real-world entity or relationship.
+
+The table name and column names are used
+to help to interpret the meaning of the values in each row.
+
+Table name:
+i.e. STUDENT tells you what each row will represent facts about.
+
+Column name:
+i.e. Class, and Major specify how to interpret the data values in each row, based on the
+column each value is in. All values in a column are of the same data type.
+
+Informal = Formal:
+row = tuple
+header = attribute
+table = relation
+
+data type describing the types of values that can appear in each column is represented by a domain of possible values.
+
+domain, tuple, attribute,
+and relation—formally*
+
+5.1.1 Domains, Attributes, Tuples, and Relations
+Formal Definitions:
+
+DOMAIN
+domain - D, set of atomic values. atomic* (recall) - each value is indivisible.
+Common way is to specify a data type.  Also useful to specify a name for a domain (to help in interpreting it's values).
+
+Parts of a domain...
+
+- logical definitions of domains:
+e.g.
+■ Usa_phone_numbers. The set of ten-digit phone numbers valid in the United
+States.
+■ Employee_ages. Possible ages of employees in a company; each must be an
+integer value between 15 and 80.
+■ Academic_department_codes. The set of academic department codes, such as
+‘CS’, ‘ECON’, and ‘PHYS’.
+
+- data type (or format) is also specified:
+e.g.
+■ The data type for Usa_phone_numbers can be declared as character string of the form (ddd)ddd-dddd,
+where each d is a numeric (decimal) digit and the first three digits form a valid
+telephone area code.
+
+■ The data type for Employee_ages is an integer number between
+15 and 80.
+
+What's the data type for the Academic_department_codes domain?*
+
+the data type is the set of all character
+strings that represent valid department names.
+
+In general, domains have three components name, data type, and format*
+Additional information can also be given i.e. units of measurment for a numeric domain
+such as pounds or kilograms.
+
+RELATIONS:
+Relation schema:
+Denoted by R(A1, A2, ..., An)
+
+Components.
+■ R - relation name
+■- A1, A2, ..., An - list of attributes
+
+■ Ai - each individual attribute, name of a role played by some domain D in the relation schema R.
+■ D - domain of Ai (denoted dom(Ai)).
+
+■ The degree (or arity) of a relation is the number of attributes n of it's relation schema.
+
+e.g.
+■ STUDENT(Name, Ssn, Home_phone, Address, Office_phone, Age, Gpa)
+
+Using the data type of each attribute, the definition is sometimes written as:
+■ STUDENT(Name: string, Ssn: string, Home_phone: string, Address: string, Office_phone: string, Age: integer, Gpa: real)
+
+Questions for the class:
+- Given this example what's the relation name? - STUDENT
+
+- What's the degree (or arity) of the relation? - 7
+
+- What's the domain of Home_phone? i.e. dom(Home_phone)? = Usa_phone_numbers
+
+It's possible to refer to the attributes of the relation schema by their position*
+- i.e. first attribute of STUDENT relation is what? - Name, etc..
+
+Relation (or relation state) r of relation schema R(A1, A2, ..., An):
+denoted r(R) is a set of n-tuples r = {t1, t2, … , tm}.
+
+n-tuple - t ordered list(s) of n values t = <v1, v2, ..., vn>, where each value vi 1<=i<=n is an element of dom(Ai) or the special NULL value.
+
+ith value of tuple t (corresponding to the attribute Ai) is referred to as t[Ai], t.Ai or t[i] (positional notation).
+
+Common terminology:
+relation intension - relation schema R
+relation extension - relation state r(R)
+
+See figure 5.1...
+Figure 5.1 shows an example of a STUDENT relation, which corresponds to the
+STUDENT schema just specified. Each tuple in the relation represents a particular
+student entity (or object). We display the relation as a table, where each tuple is
+shown as a row and each attribute corresponds to a column header indicating a role
+or interpretation of the values in that column. NULL values represent attributes
+whose values are unknown or do not exist for some individual STUDENT tuple.
+(show diagram to class on PDF)...
+
+Formal definition of relation (using set theory)..
+relation (or relation state) r(R) is a mathematical relation of
+degree n on the domains dom(A1), dom(A2), … , dom(An), which is a subset of the
+Cartesian product (denoted by ×) of the domains that define R:
+
+
+
+r(R) ⊆ (dom(A1) × dom(A2) × . . . × (dom(An))
+The Cartesian product specifies all possible combinations of values from the underlying
+domains. 
+
+Hence, if we denote the total number of values, or cardinality, in a
+domain D by |D| (assuming that all domains are finite), the total number of tuples
+in the Cartesian product is*
+
+|dom(A1)| × |dom(A2)| × . . . × |dom(An)|
+
+This product of cardinalities of all domains represents the total number of possible
+instances or tuples that can ever exist in any relation state r(R). Of all these possible
+combinations, a relation state at a given time—
+
+- current relation state - reflects
+only the valid tuples that represent a particular state of the real world.
+
+- Two facts to know:
+in general, as the state of the real world changes, so does the relation state (by being transformed into another relation state).
+
+However, the schema R is relatively static and changes very infrequently —for example, as a result of adding an attribute to represent new information that was not originally stored in the relation.
+
+(Potential Quiz Question based upon the two statements above)*
+
+Nuances*
+possible for several attributes to have the same domain.
+attribute names indicate different roles - interpretations for that domain.
+
+Characteristics (make it different from a file or a table):
+relation - defined as a set of tuples (mathematically elements of a set have no order among them).
+Tuples in a relation have no particular order.
+
+File - records are physically stored on disk (or in memory), so there is always an order among the records.
+The order represents first, second, ith, and last records in a file.
+
+When we display relations as a table, rows are displayed in a certain order.
+
+Why tuple ordering is not part of definition of relation?*
+- Tuple ordering is not part of a relation definition because a relation attempts to represent
+facts at a logical or abstract level.
+
+Many tuple orders can be specified on the
+same relation. When a relation is implemented as a file or displayed as a table, a particular
+ordering may be specified on the records of the file or the rows of the table.
+
+Example from figure 5.1...*
+For example, tuples in the STUDENT relation in Figure 5.1 could be
+ordered by values of Name, Ssn, Age, or some other attribute.
+
+Ordering of Values within a Tuple and an Alternative Definition of a Relation.
+
+- According to the preceding definition of a relation, an n-tuple is an ordered list of n
+values, so the ordering of values in a tuple—and hence of attributes in a relation
+schema—is important. However, at a more abstract level, the order of attributes
+and their values is not that important as long as the correspondence between attributes
+and values is maintained.
+
+- An alternative definition of a relation can be given, making the ordering of values
+in a tuple unnecessary. In this definition, a relation schema R = {A1, A2, … , An} is a
+set of attributes (instead of an ordered list of attributes), and a relation state r(R) is
+a finite set of mappings r = {t1, t2, … , tm}, where each tuple ti is a mapping from R
+to D, and D is the union (denoted by ∪) of the attribute domains; that is, D =
+dom(A1) ∪ dom(A2) ∪ … ∪ dom(An). In this definition, t[Ai] must be in dom(Ai)
+for 1 ≤ i ≤ n for each mapping t in r. Each mapping ti is called a tuple.
+
+- According to this definition of tuple as a mapping, a tuple can be considered as a
+set of (<attribute>, <value>) pairs, where each pair gives the value of the mapping
+from an attribute Ai to a value vi from dom(Ai). The ordering of attributes is not
+important, because the attribute name appears with its value.
+
+example:
+t = < (Name, Dick Davidson),(Ssn, 422-11-2320),(Home_phone, NULL),(Address, 3452 Elgin Road),
+(Office_phone, (817)749-1253),(Age, 25),(Gpa, 3.53)>
+t = < (Address, 3452 Elgin Road),(Name, Dick Davidson),(Ssn, 422-11-2320),(Age, 25),
+(Office_phone, (817)749-1253),(Gpa, 3.53),(Home_phone, NULL)>
+
+
+self-describing data*
+- when the attribute value and name are included together in a tuple (description of each value (attribute name) is included in the tuple).
+
+- We will mostly use the first definition of relation, where the attributes are ordered
+in the relation schema and the values within tuples are similarly ordered, because it
+simplifies much of the notation. However, the alternative definition given here is
+more general.
+
+Values and NULLs in the Tuples.
+Each value in a tuple is an atomic value; that
+is, it is not divisible into components within the framework of the basic relational
+model. Hence, composite and multivalued attributes (see Chapter 3) are not
+allowed. This model is sometimes called the flat relational model.
+
+Most of the relational model was thought of with this in mind - first normal form assumption.
+
+Hence, multivalued attributes
+must be represented by separate relations,and composite attributes are represented
+only by their simple component attributes in the basic relational model.
+
+An important concept is that of NULL values, which are used to represent the values of
+attributes that may be unknown or may not apply to a tuple. A special value, called
+NULL, is used in these cases.
+
+In general, we can have several meanings for NULL values, such as
+value unknown, value exists but is not available, or attribute does not apply to this tuple
+(also known as value undefined).
+
+The exact meaning of a NULL value governs how it fares during arithmetic aggregations
+or comparisons with other values. For example, a comparison of two NULL
+values leads to ambiguities—if both Customer A and B have NULL addresses, it does
+not mean they have the same address. During database design, it is best to avoid
+NULL values as much as possible. We will discuss this further in Chapters 7 and 8 in
+the context of operations and queries, and in Chapter 14 in the context of database
+design and normalization.
+
+Interpretation (Meaning) of a Relation.
+can be interpreted as a declaration or type of assertion.
+
+For example, the schema of the STUDENT
+relation of Figure 5.1 asserts that, in general, a student entity has a Name, Ssn,
+Home_phone, Address, Office_phone, Age, and Gpa.
+
+Each tuple in the relation can
+then be interpreted as a fact or a particular instance of the assertion.
+
+Notice that some relations may represent facts about entities, whereas other relations
+may represent facts about relationships*
+
+Big Takeaway*
+Hence, the relational model represents facts about both entities and relationships
+uniformly as relations. (ER or E-ER model they are separate concepts).
+
+Downside(s)
+- This sometimes compromises understandability because
+one has to guess whether a relation represents an entity type or a relationship type.
+
+- An alternative interpretation of a relation schema is as a predicate; in this case, the
+values in each tuple are interpreted as values that satisfy the predicate. For example,
+the predicate STUDENT (Name, Ssn, …) is true for the five tuples in relation STUDENT
+of Figure 5.1. These tuples represent five different propositions or facts in the
+real world.
+
+- An assumption called the closed world assumption
+states that the only true facts in the universe are those present within the extension
+(state) of the relation(s).
+
+
+This interpretation of relations provides a foundation for understanding and utilizing relational databases, allowing for a structured representation of entities, relationships, and facts within a database system.
+We will use the following notation in our presentation:
+■ A relation schema R of degree n is denoted by R(A1, A2, … , An).
+■ The uppercase letters Q, R, S denote relation names.
+■ The lowercase letters q, r, s denote relation states.
+■ The letters t, u, v denote tuples.
+■ In general, the name of a relation schema such as STUDENT also indicates
+the current set of tuples in that relation—the current relation state—whereas
+STUDENT(Name, Ssn, …) refers only to the relation schema.
+■ An attribute A can be qualified with the relation name R to which it belongs
+by using the dot notation R.A—for example, STUDENT.Name or
+STUDENT.Age. This is because the same name may be used for two attributes
+in different relations. However, all attribute names in a particular
+relation must be distinct.
+■ An n-tuple t in a relation r(R) is denoted by t = <v1, v2, … , vn>, where vi is
+the value corresponding to attribute Ai. The following notation refers to
+component values of tuples:
+ Both t[Ai] and t.Ai (and sometimes t[i]) refer to the value vi in t for attribute
+Ai.
+ Both t[Au, Aw, … , Az] and t.(Au, Aw, … , Az), where Au, Aw, … , Az is a list
+of attributes from R, refer to the subtuple of values <vu, vw, … , vz> from t
+corresponding to the attributes specified in the list.
+As an example, consider the tuple t = <’Barbara Benson’, ‘533-69-1238’,
+‘(817)839-8461’, ‘7384 Fontana Lane’, NULL, 19, 3.25> from the STUDENT relation in Figure
+5.1; we have t[Name] = <‘Barbara Benson’>, and t[Ssn, Gpa, Age] = <‘533-69-1238’,
+3.25, 19>.
+
+5.2 Relational Model Constraints and Relational Database Schemas
+
+There are generally many
+restrictions or constraints on the actual values in a database state.
+
+- model-based (implicit) constraints - Constraints that are inherent in the data model.
+
+- schema-based constraints (explicit) constraints - Constraints that can be directly expressed in the schemas of the data model, typically
+by specifying them in the DDL.
+
+- application-based (semantic) constraints or business rules - constraints that cannot be directly expressed in the schemas of the data
+model, and hence must be expressed and enforced by the application programs
+or in some other way.
+
+First section were model-based constraints.
+
+Side note:
+- data dependencies - Another important category of constraints (having to do with normalization).
+
+This section is schema-based constraints (ones that can be specified by the DDL)*
+
+Different schema-based constraints:
+domain constraints, key constraints, constraints
+on NULLs, entity integrity constraints, and referential integrity constraints.
+
+5.2.1 Domain Constraints
+
+Domain constraints specify that within each tuple, the value of each attribute A must
+be an atomic value from the domain dom(A).
+
+Can be classic data types, or subranges of classic data types.  Most generally they're defined by built in data types of the DDL (data definition language) in SQL.
+
+5.2.2 Key Constraints and Constraints on NULL Values
+
+In the formal relational model, a relation is defined as a set of tuples. By definition,
+all elements of a set are distinct; hence, all tuples in a relation must also be distinct.
+
+Must be distinct when all attributes are included.  Further, there are usually subsets of attributes we want this condition to hold for i.e. some subset of attributes with
+the property that no two tuples in any relation state r of R should have the same
+combination of values for these attributes.
+
+Subset of attributes SK
+
+any two distinct tuples t1, t2 - recall...
+
+r(R) - relation state.
+set of n-tuples t = {t1, t2, ..., tm}
+where each t1 is a set of n-values v = {v1, v2, ..., vn}.
+
+t1[SK] != t2[SK]
+
+any set of such attributes SK is called a superkey of the relation schema R.
+Superkeys specify a uniqueness constraint - no distinct tuples in any state r(R) can have the same value for SK.
+
+Every relation has one default superkey? - Class what is it? (potential quiz question*)
+
+Answer: The set of all it's attributes! (Superkeys can have redundant attributes).
+
+keys have no redundancy! 
+
+Key k of a relation schema R is a superkey of R with additional property that removing attribute A from K leaves a set of attributes K' that is not a superkey of R any more.
+
+Satisfies two properties...
+
+1. Two distinct tuples in any state of the relation cannot have identical values
+for (all) the attributes in the key. This uniqueness property also applies to a
+superkey.
+2. It is a minimal superkey—that is, a superkey from which we cannot remove
+any attributes and still have the uniqueness constraint hold. This minimality
+property is required for a key but is optional for a superkey.
+
+- Hence, a key is a superkey but not vice versa (quiz question)*
+
+How can we use keys?
+
+- The value of a key attribute can be used to identify uniquely each tuple in the relation.
+
+- A set of attributes
+constituting a key is a property of the relation schema;* it is a constraint that should
+hold on every valid relation state of the schema. A key is determined from the meaning
+of the attributes, and the property is time-invariant: It must continue to hold
+when we insert new tuples in the relation. For example, we cannot and should not
+designate the Name attribute of the STUDENT relation in Figure 5.1 as a key because
+it is possible that two students with identical names will exist at some point in a
+valid state.
+
+In general, a relation schema can have more than one key (quiz question)* in that case each key is a candidate key.  It's common to designate one of the cadidate keys as a primary key of the relation (the candidate key used to identify tuples in a relation).
+
+How to specify them in the relational schema
+
+- We use the convention
+that the attributes that form the primary key of a relation schema are underlined, as
+shown in Figure 5.4.
+
+How to choose from candidate keys to be primary keys (guidance)*
+
+- better to choose a primary key with a single attribute or a small number
+of attributes.
+
+- The other candidate keys are designated as unique keys and are
+not underlined.
+
+5.2.3 Relational Databases and Relational
+Database Schemas
+
+definitions and constraints so far only apply to single relations and their attributes*
+relational databases in general contain many relations, with tuples in relations that are related in various ways.
+
+Definitions:
+Relational Database Schema S set of relation schemas S = {R1, R2, ..., Rm} and set of integrity constraints IC.
+
+Relational Database State DB of S is a set of relation states DB = {r1, r2, ..., rm} each ri is a state of Ri and such that ri relation state satisfies the integrity constraints specified in IC.
+
+Relational Database Schema = COMPANY.
+How many relation schemas?
+i.e. COMPANY = {EMPLOYEE, DEPARTMENT,
+DEPT_LOCATIONS, PROJECT, WORKS_ON, DEPENDENT}
+
+- A database state that does not obey all the integrity constraints is called not valid.
+
+- a state that satisfies all the constraints in the defined set of
+integrity constraints IC is called a valid state.
+
+Attribute Names in Relations:
+Cases where attributes in different relations correspond to the same real world concept (i.e. the number given to a department in DEPARTMENT and DEPT_LOCATIONS relations).
+
+May or may not have the same name in different relations (even though they correspond to the same real world concept).
+
+Alternatively attributes that represent different concepts may have the same name in different relations (i.e. Name attribute in Both DEPARTMENT and EMPLOYEE relations).
+
+Used to be assumption that would always share the same name if it corresponded to the same real world concept.  Do you see where this could be a problem?
+
+Answer: In self referencing relations* i.e. remember in conceptual model with self referencing relationship we had to define roles each attribute plays (this roles are the different attribute names)*
+
+i.e. EMPLOYEE relation SSN for the employee themselves, and SSN for their manager.
+Must distinguish their meaning, do so by giving them different attribute names in the EMPLOYEE relation.
+
+Relational DBMS' must have a DDL (Data definition language) for defining a relational database schema.  Most use SQL (next week)*
+
+- Integrity constraints are specified on a database schema and are expected to hold on
+every valid database state of that schema.
+
+5.2.4 Entity Integrity, Referential Integrity, and Foreign Keys
+
+Entity Integrity.
+- entity integrity constraint: states that no primary key value can be NULL.
+
+Why's that? (from your definition of a primary key)*
+We have to use it to uniquely identify tuples.
+
+May not be able to distinguish them if we try to reference from other relations.
+
+Null values suggest we cannot identify tuples (may factor into choosing a primary key vs. candidate keys)*
+
+- Key constraints and entity integrity constraints are specified on individual relations*
+
+referential integrity constraint - specified between two relations and is used to
+maintain the consistency among tuples in the two relations.
+
+Informal: states that a tuple in one relation that refers to another relation
+must refer to an existing tuple in that relation.
+
+Formal definition:
+foreign key - A set of attributes FK in relation schema R1 is a foreign key of R1 that references relation R2 if it satisfies the following rules:
+
+1. The attributes in FK have the same domain(s) as the primary key attributes
+PK of R2; the attributes FK are said to reference or refer to the relation R2.
+
+2. A value of FK in a tuple t1 of the current state r1(R1) either occurs as a value
+of PK for some tuple t2 in the current state r2(R2) or is NULL. In the former
+case, we have t1[FK] = t2[PK], and we say that the tuple t1 references or
+refers to the tuple t2.
+
+If these two conditions hold, a referential integrity constraint from R1 to
+R2 is said to hold.
+
+Usually many referential integrity constraints in a database of many relations.
+
+Referential integrity constraints typically arise from the
+relationships among the entities represented by the relation schemas*
+
+Value in the referencing relation must refer to an existing tuple, or be NULL (hasn't been assigned yet, or doesn't exist)*
+
+Foreign key can refer to it's own relation*
+
+- In this definition, R1 is called the referencing relation and R2 is the referenced
+relation.
+
+How to specify on the Relational Database Schema?
+
+- We can diagrammatically display referential integrity constraints by drawing a directed
+arc from each foreign key to the relation it references. For clarity, the arrowhead may
+point to the primary key of the referenced relation.
+
+
+All integrity constraints should be specified on the relational database schema (that is,
+specified as part of its definition) if we want the DBMS to enforce these constraints on
+the database states. Hence, the DDL includes provisions for specifying the various
+types of constraints so that the DBMS can automatically enforce them.
+
+In SQL, the
+CREATE TABLE statement of the SQL DDL allows the definition of primary key,
+unique key, NOT NULL, entity integrity, and referential integrity constraints, among
+other constraints (see Sections 6.1 and 6.2) .
+
+5.2.5 Other Types of Constraints
+
+semantic integrity constraints - cannot be specified by the DDL of the database schema.
+
+- the salary of an employee should not exceed the salary of the employee’s
+supervisor and the maximum number of hours an employee can work on all projects
+per week is 56.
+
+Such constraints can be specified and enforced within the application
+programs that update the database i.e. our API's :)
+
+The types of constraints we discussed so far may be called state constraints
+because they define the constraints that a valid state of the database must satisfy.
+
+transition constraints - can be defined to deal
+with state changes in the database.
+
+i.e. the salary of an employee can only increase.
+
+Typically enforced by application programs i.e. your API's.
+
+5.3 Update Operations, Transactions,
+and Dealing with Constraint Violations
+
+operations can be categorized into retrievals and updates.
+
+The relational algebra operations, which can be used to specify retrievals,
+are discussed in detail in Chapter 8. A relational algebra expression forms a new
+relation after applying a number of algebraic operators to an existing set of relations;
+its main use is for querying a database to retrieve information. The user formulates
+a query that specifies the data of interest, and a new relation is formed by
+applying relational operators to retrieve this data. The result relation becomes the
+answer to (or result of ) the user’s query.
+
+- There are three basic operations that can change the states of relations in the database:
+Insert, Delete, and Update (or Modify).
+
+
+
+
+Domain, Key, Entity Integrity, Referential Integrity*
+
+- They insert new data, delete old data,
+or modify existing data records, respectively.
+
+What constraints can be violated on an insert?
+Insert can violate any of the four types of constraints.
+
+Let's try to come up with an example for each*
+
+- The Insert operation provides a list of attribute values for a new tuple t that is to be
+inserted into a relation R. Insert can violate any of the four types of constraints.
+Domain constraints can be violated if an attribute value is given that does not
+appear in the corresponding domain or is not of the appropriate data type. Key
+constraints can be violated if a key value in the new tuple t already exists in another
+tuple in the relation r(R). Entity integrity can be violated if any part of the primary
+key of the new tuple t is NULL. Referential integrity can be violated if the value of
+any foreign key in t refers to a tuple that does not exist in the referenced relation.
+
+If an insertion violates one or more constraints, default option is to reject the insertion.
+Useful if the DBMS could provide a reason to the user why the operation was rejected.
+
+another option is to try and correct it, but this is not generally used for inserts*
+
+- In the first operation, the DBMS could ask the user to provide a value for Ssn, and
+could then accept the insertion if a valid Ssn value is provided. In operation 3, the
+DBMS could either ask the user to change the value of Dno to some valid value
+(or set it to NULL), or it could ask the user to insert a DEPARTMENT tuple with
+Dnumber = 7 and could accept the original insertion only after such an operation
+was accepted. Notice that in the latter case the insertion violation can cascade back
+to the EMPLOYEE relation if the user attempts to insert a tuple for department 7 with
+a value for Mgr_ssn that does not exist in the EMPLOYEE relation.
+
+5.3.2 The Delete Operation
+What constraints can be violated for Delete?
+
+can only violate referential integrity.This occurs if the tuple
+being deleted is referenced by foreign keys from other tuples in the database.
+
+Several options are available if a deletion operation causes a violation.
+
+- The first option, called restrict, is to reject the deletion.
+
+- The second option, called cascade, is
+to attempt to cascade (or propagate) the deletion by deleting tuples that reference the
+tuple that is being deleted.
+
+- A third option, called set null or set default, is to modify the referencing attribute
+values that cause the violation; each such value is either set to NULL or changed to reference another default valid tuple.
+
+- Notice that if a referencing attribute that
+causes a violation is part of the primary key, it cannot be set to NULL; otherwise, it
+would violate entity integrity (quiz question)*
+
+You can use combinations of these options for dealing with violating referential integrity.
+
+In general, when a referential integrity constraint is specified in the DDL, the DBMS
+will allow the database designer to specify which of the options applies in case of a
+violation of the constraint.
+
+5.3.3 The Update Operation
+What constraints can be violated for Delete?
+
+Updating an attribute that is neither part of a primary key nor part of a foreign key
+usually causes no problems; only has to check for domain constraint to be violated.
+
+Modifying a primary key value is similar
+to deleting one tuple and inserting another in its place because we use the primary
+key to identify tuples. Hence, the issues discussed earlier in both Sections 5.3.1
+(Insert) and 5.3.2 (Delete) come into play.
+
+Modifying a foreign key attribute, the DBMS must make sure that the new value refers to an existing tuple in the referenced
+relation (or is set to NULL).
+
+Similar options exist to deal with referential integrity
+violations caused by Update as those options discussed for the Delete operation.
+In fact, when a referential integrity constraint is specified in the DDL, the DBMS will
+allow the user to choose separate options to deal with a violation caused by Delete
+and a violation caused by Update
+
+5.3.4 The Transaction Concept
+A transaction is an executing program that includes
+some database operations, such as reading from the database, or applying insertions,
+deletions, or updates to the database. At the end of the transaction, it must
+leave the database in a valid or consistent state that satisfies all the constraints specified
+on the database schema. A single transaction may involve any number of
+retrieval operations (to be discussed as part of relational algebra and calculus in
+Chapter 8, and as a part of the language SQL in Chapters 6 and 7) and any number
+of update operations. These retrievals and updates will together form an atomic
+unit of work against the database.
