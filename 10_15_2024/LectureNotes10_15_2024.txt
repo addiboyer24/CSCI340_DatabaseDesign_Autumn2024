@@ -111,7 +111,7 @@ Figure 6.1 to show the complete COMPANY schema in one place.
 The basic data types available for attributes include numeric, character string, bit 
 string, Boolean, date, and time.
 
-- Numeric data types, integer numbers of various sizes (INTEGER or INT, SMALLINT, BIGINT) & floating point numbers of various precision (FLOAT or REAL, DOUBLE).  Formatted numbers can be declared by using DECIMAL(i,j) where i (the precision), is the total number of decimal digits after the decimal point.  j, the scale is the number of digits after the decimal point. The default for scale is zero, default for precision is implementation defined.
+- Numeric data types, integer numbers of various sizes (INTEGER or INT, SMALLINT, BIGINT) & floating point numbers of various precision (FLOAT or REAL, DOUBLE).  Formatted numbers can be declared by using DECIMAL(i,j) where i (the precision), is the total number of digits.  j, the scale is the number of digits after the decimal point. The default for scale is zero, default for precision is implementation defined.
 
 - Character-string data types
 - fixed length i.e. CHAR(n) or CHARACTER(n), n is the number of characters.
