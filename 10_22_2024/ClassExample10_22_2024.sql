@@ -4,7 +4,7 @@ SET @VarName = 2;
 SELECT @VarName;
 
 -- i (precision) total number of digits, j (scale) total number of digits after the decimal
--- i = 1, j = 1 What's the largest number 9.9
+-- i = 1, j = 1 What's the largest number .9
 DECLARE @FloatValue DECIMAL(1,1) = .9;
 SELECT @FloatValue;
 
