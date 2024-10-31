@@ -33,6 +33,7 @@ public class StudentController {
     @PutMapping("/{id}")
     public void update(@PathVariable("id") @RequestBody() int id, Student student){
     }
+
     @GetMapping("/{id}")
     public Student get(@PathVariable("id") int id) throws Exception {
         this.studentRepository.setDatabaseConnection(this.databaseConnection);

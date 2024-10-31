@@ -36,7 +36,7 @@ public class StudentRepository implements IStudentRepository {
         String sql = "SELECT * FROM STUDENT WHERE Id = " + id + ";";
         List<Student> students = this.databaseConnection.query(sql, BeanPropertyRowMapper.newInstance(Student.class));
         if (students.size() == 1){
-            return students.get(0);
+            return students.getFirst();
         }
         throw new Exception();
     }
