@@ -4,6 +4,7 @@ import App.Domain.Employee;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeRepository extends BaseRepository<Employee> {
@@ -21,5 +22,11 @@ public class EmployeeRepository extends BaseRepository<Employee> {
             return employees.getFirst();
         }
         throw new Exception();
+    }
+
+    @Override
+    public List<Employee> get() {
+        String sql = "SELECT * FROM EMPLOYEE;";
+        return this.getDatabaseConnection().query(sql, BeanPropertyRowMapper.newInstance(Employee.class));
     }
 }

@@ -2,6 +2,8 @@ package App.Infrastructure;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+
 public abstract class BaseRepository<Item> {
     private final JdbcTemplate databaseConnection;
     public BaseRepository(JdbcTemplate databaseConnection){
@@ -9,6 +11,8 @@ public abstract class BaseRepository<Item> {
     }
 
     public abstract Item get(String id) throws Exception;
+
+    public abstract List<Item> get();
 
     public JdbcTemplate getDatabaseConnection(){
         return this.databaseConnection;

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController()
 @RequestMapping("/Employee")
 public class EmployeeController {
@@ -23,6 +25,11 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public Employee get(@PathVariable("id") String id) throws Exception {
         return this.employeeRepository.get(id);
+    }
+
+    @GetMapping("/")
+    public List<Employee> get(){
+        return this.employeeRepository.get();
     }
 
 }

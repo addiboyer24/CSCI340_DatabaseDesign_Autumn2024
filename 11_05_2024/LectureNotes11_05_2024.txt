@@ -1,0 +1,193 @@
+7 .1 More Complex SQL Retrieval Queries
+
+7.1.1 Comparisons Involving NULL and Three-Valued Logic
+
+- It is often not possible to determine which of the meanings is intended; for example, a NULL for the home phone of a person can have any of the three meanings. 
+Hence, SQL does not distinguish among the different meanings of NULL.
+In general, each individual NULL value is considered to be different from every other 
+NULL value in the various database records. When a record with NULL in one of its 
+attributes is involved in a comparison operation, the result is considered to be 
+UNKNOWN (it may be TRUE or it may be FALSE). Hence, SQL uses a three-valued 
+logic with values TRUE, FALSE, and UNKNOWN instead of the standard two-valued 
+(Boolean) logic with values TRUE or FALSE. It is therefore necessary to define the 
+results (or truth values) of three-valued logical expressions when the logical connectives AND, OR, and NOT are used. Table 7.1 shows the resulting values.
+
+(See Table 7.1 in Textbook)
+
+SQL allows queries that check whether an attribute value is NULL. Rather than using 
+= or <> to compare an attribute value to NULL, SQL uses the comparison operators IS or 
+IS NOT. This is because SQL considers each NULL value as being distinct from every 
+other NULL value, so equality comparison is not appropriate. It follows that when a join 
+condition is specified, tuples with NULL values for the join attributes are not included in 
+the result (unless it is an OUTER JOIN; see Section 7.1.6).
+
+e.g.
+
+Query 18. Retrieve the names of all employees who do not have supervisors.
+
+(Come up with query like this with class...)
+
+Q18: SELECT Fname, Lname
+FROM EMPLOYEE
+WHERE Super_ssn IS NULL;
+
+7.1.2 Nested Queries, Tuples, 
+and Set/Multiset Comparisons
+
+- Some queries require that existing values in the database be fetched and then used 
+in a comparison condition.
+
+nested queries - complete select-from-where blocks within another SQL query.
+
+outer query - the other query referred to above.
+
+Nested queries can be used in the WHERE clause, the FROM clause, or the SELECT clause.
+
+IN operator (most commonly used in the WHERE clause).
+
+- If a nested query returns a single attribute and a single tuple, the query result will be 
+a single (scalar) value. In such cases, it is permissible to use = instead of IN for the 
+comparison operator. In general, the nested query will return a table (relation), 
+which is a set or multiset of tuples.
+SQL allows the use of tuples of values in comparisons by placing them within 
+parentheses. To illustrate this, consider the following query:
+
+On Ambiguity:
+- In general, we can have several levels of nested queries. We can once again be faced 
+with possible ambiguity among attribute names if attributes of the same name 
+exist—one in a relation in the FROM clause of the outer query, and another in a relation in the FROM clause of the nested query. The rule is that a reference to an 
+unqualified attribute refers to the relation declared in the innermost nested query.
+
+- It is generally advisable to create tuple variables (aliases) for all the tables referenced 
+in an SQL query to avoid potential errors and ambiguities, as illustrated in Q16.
+
+7.1.3 Correlated Nested Queries
+
+- Whenever a condition in the WHERE clause of a nested query references some attribute of a relation declared in the outer query, the two queries are said to be correlated.
+
+- We can understand a correlated query better by considering that the nested query is 
+evaluated once for each tuple (or combination of tuples) in the outer query.
+
+7.1.4 The EXISTS and UNIQUE Functions in SQL
+EXISTS and UNIQUE are Boolean functions that return TRUE or FALSE; hence, 
+they can be used where? (in a WHERE clause condition)* quiz question.
+
+EXISTS AND NOT EXISTS:
+- The EXISTS function in SQL is used 
+to check whether the result of a nested query is empty (contains no tuples) or not. 
+The result of EXISTS is a Boolean value TRUE if the nested query result contains at 
+least one tuple, or FALSE if the nested query result contains no tuples.
+
+- EXISTS and NOT EXISTS are typically used in conjunction with a correlated nested 
+query.
+
+UNIQUE:
+There is another SQL function, UNIQUE(Q), which returns TRUE if there are no 
+duplicate tuples in the result of query Q; otherwise, it returns FALSE. This can be 
+used to test whether the result of a nested query is a set (no duplicates) or a multiset 
+(duplicates exist).
+
+7.1.5 Explicit Sets and Renaming in SQL
+- We have seen several queries with a nested query in the WHERE clause. It is also 
+possible to use an explicit set of values in the WHERE clause, rather than a nested 
+query. 
+
+- In SQL, it is possible to rename any attribute that appears in the result of a query 
+by adding the qualifier AS followed by the desired new name. Hence, the AS construct can be used to alias both attribute and relation names in general, and it can 
+be used in appropriate parts of a query.
+
+7.1.6 Joined Tables in SQL and Outer Joins
+- The concept of a joined table (or joined relation) was incorporated into SQL to 
+permit users to specify a table resulting from a join operation in the FROM clause of 
+a query. This construct may be easier to comprehend than mixing together all the 
+select and join conditions in the WHERE clause.
+
+NATURAL JOIN:
+just use this to introduce the join concept:
+
+INNER JOIN:
+
+- The default type of join in a joined table is called an inner join, where a tuple is 
+included in the result only if a matching tuple exists in the other relation.
+
+- If the user 
+requires that all employees be included, a different type of join called OUTER JOIN
+must be used explicitly
+
+Types of Outer Joins:
+
+- LEFT OUTER JOIN (every tuple in the left table must appear in the result; if it does not have 
+a matching tuple, it is padded with NULL values for the attributes of the right table)
+
+- RIGHT OUTER JOIN (every tuple in the right table must appear in the result; if it does 
+not have a matching tuple, it is padded with NULL values for the attributes of the left 
+table)
+
+- FULL OUTER JOIN
+(Show on Ven Diagram)
+
+7.1.7 Aggregate Functions in SQL
+
+- Aggregate functions are used to summarize information from multiple tuples 
+into a single-tuple summary.
+
+Built in Aggregate Functions:
+COUNT, SUM, MAX, MIN, and AVG.
+
+7.1.8 Grouping: The GROUP BY and HAVING Clauses
+- Applying aggregate functions to subgroups:
+
+- In these cases we need to partition the relation into nonoverlapping subsets (or groups) of tuples. Each group (partition) will 
+consist of the tuples that have the same value of some attribute(s), called the 
+grouping attribute(s).
+
+- Every attribute selected that's not apart of an aggregate function must be included in the group by clause.
+
+i.e.,
+Query 24. For each department, retrieve the department number, the number 
+of employees in the department, and their average salary.
+Q24: SELECT Dno, COUNT (*), AVG (Salary)
+FROM EMPLOYEE
+GROUP BY Dno;
+
+- If NULLs exist in the grouping attribute, then a separate group is created for all 
+tuples with a NULL value in the grouping attribute.
+
+- Sometimes we want to retrieve the values of these functions only for groups that 
+satisfy certain conditions. For example, suppose that we want to modify Query 25 so 
+that only projects with more than two employees appear in the result. SQL provides 
+a HAVING clause, which can appear in conjunction with a GROUP BY clause, for this 
+purpose. HAVING provides a condition on the summary information regarding the 
+group of tuples associated with each value of the grouping attributes. 
+
+The final product:
+
+SELECT <attribute and function list>
+FROM <table list>
+[ WHERE <condition> ]
+[ GROUP BY <grouping attribute(s)> ]
+[ HAVING <group condition> ]
+[ ORDER BY <attribute list> ];
+
+7.4 Schema Change Statements in SQL
+7.4.1 The DROP Command
+Examples:
+
+DROP SCHEMA COMPANY CASCADE;
+
+DROP TABLE DEPENDENT CASCADE;
+
+If restrict is preferred the table / schema is dropped if and only if it's not referenced by some other object.
+
+7.4.2 The ALTER Command
+Examples:
+
+- ALTER TABLE COMPANY.EMPLOYEE ADD COLUMN Job VARCHAR(12);
+
+- ALTER TABLE COMPANY.EMPLOYEE DROP COLUMN Address CASCADE;
+
+- ALTER TABLE COMPANY.DEPARTMENT ALTER COLUMN Mgr_ssn
+ DROP DEFAULT;
+
+- ALTER TABLE COMPANY.DEPARTMENT ALTER COLUMN Mgr_ssn
+ SET DEFAULT ‘333445555’;
