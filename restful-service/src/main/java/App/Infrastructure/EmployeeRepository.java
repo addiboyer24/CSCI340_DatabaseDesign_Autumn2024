@@ -24,6 +24,11 @@ public class EmployeeRepository extends BaseRepository<Employee> {
         throw new Exception();
     }
 
+    public Integer getNumberOfEmployees(String id){
+        String sql = "SELECT COUNT(*) FROM EMPLOYEE WHERE Ssn = '" + id + "'";
+        return this.getDatabaseConnection().queryForObject(sql, Integer.class);
+    }
+
     @Override
     public List<Employee> get() {
         String sql = "SELECT * FROM EMPLOYEE;";
