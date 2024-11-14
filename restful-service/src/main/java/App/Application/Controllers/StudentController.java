@@ -31,7 +31,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable("id") @RequestBody() int id, Student student){
+    public void update(@PathVariable("id")  int id, @RequestBody() Student student){
     }
 
     @GetMapping("/{id}")

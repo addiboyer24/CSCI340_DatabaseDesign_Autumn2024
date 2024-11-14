@@ -14,6 +14,8 @@ public abstract class BaseRepository<Item> {
 
     public abstract List<Item> get();
 
+    public abstract void create(Item item);
+
     public JdbcTemplate getDatabaseConnection(){
         return this.databaseConnection;
     }

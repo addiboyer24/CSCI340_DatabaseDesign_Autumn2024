@@ -25,6 +25,15 @@ public class DepartmentRepository extends BaseRepository<Department>{
 
     @Override
     public List<Department> get() {
-        return List.of();
+        String sql = "SELECT * FROM DEPARTMENT;";
+        return this.getDatabaseConnection().query(sql, BeanPropertyRowMapper.newInstance(Department.class));
+    }
+
+    @Override
+    public void create(Department department) {
+        String sql = "SELECT MAX(Number)+1 FROM DEPARTMENT;";
+        Integer nextNumber = this.getDatabaseConnection().queryForObject(sql, Integer.class);
+        sql = "INSERT INTO DEPARTMENT VALUES (" + nextNumber + ",'" + department.getName() + "','" + department.getManagerSsn() + "','" + department.getStartDate() + "');";
+        this.getDatabaseConnection().execute(sql);
     }
 }

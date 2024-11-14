@@ -34,4 +34,9 @@ public class EmployeeRepository extends BaseRepository<Employee> {
         String sql = "SELECT * FROM EMPLOYEE;";
         return this.getDatabaseConnection().query(sql, BeanPropertyRowMapper.newInstance(Employee.class));
     }
+
+    @Override
+    public void create(Employee employee) {
+
+    }
 }

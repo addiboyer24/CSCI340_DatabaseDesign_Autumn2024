@@ -28,6 +28,7 @@ public class EmployeeController {
         throw new Exception();
     }
 
+    // http://localhost:8080/Employee?fName=JIM&lName=JOHN
     @GetMapping("")
     public List<Employee> getEmployees(@RequestParam(value = "fName", required = false, defaultValue = "") String fName){
         List<Employee> employees = this.employeeRepository.get();
