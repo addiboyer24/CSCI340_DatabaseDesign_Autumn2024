@@ -26,7 +26,7 @@ public class EmployeeRepository extends BaseRepository<Employee> {
 
     public Integer getNumberOfEmployees(String id){
         String sql = "SELECT COUNT(*) FROM EMPLOYEE WHERE Ssn = '" + id + "'";
-        return this.getDatabaseConnection().queryForObject(sql, Integer.class);
+            return this.getDatabaseConnection().queryForObject(sql, Integer.class);
     }
 
     @Override
@@ -37,6 +37,16 @@ public class EmployeeRepository extends BaseRepository<Employee> {
 
     @Override
     public void create(Employee employee) {
+
+    }
+
+    @Override
+    public void delete(String id) {
+
+    }
+
+    @Override
+    public void update(String id, Employee employee) {
 
     }
 }

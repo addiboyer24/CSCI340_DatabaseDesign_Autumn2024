@@ -36,4 +36,20 @@ public class DepartmentRepository extends BaseRepository<Department>{
         sql = "INSERT INTO DEPARTMENT VALUES (" + nextNumber + ",'" + department.getName() + "','" + department.getManagerSsn() + "','" + department.getStartDate() + "');";
         this.getDatabaseConnection().execute(sql);
     }
+
+    @Override
+    public void delete(String id) {
+        String sql = "DELETE FROM DEPARTMENT WHERE Number = " + id + ";";
+        this.getDatabaseConnection().execute(sql);
+    }
+
+    @Override
+    public void update(String id, Department department) {
+        String sql = "UPDATE DEPARTMENT SET Name = '"
+                + department.getName()
+                + "', ManagerSsn = '" + department.getManagerSsn()
+                + "', StartDate = '" + department.getStartDate() + "'"
+                + " WHERE Number = " + id + ";";
+        this.getDatabaseConnection().execute(sql);
+    }
 }

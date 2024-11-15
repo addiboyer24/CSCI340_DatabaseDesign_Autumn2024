@@ -16,6 +16,10 @@ public abstract class BaseRepository<Item> {
 
     public abstract void create(Item item);
 
+    public abstract void delete(String id);
+
+    public abstract void update(String id, Item item);
+
     public JdbcTemplate getDatabaseConnection(){
         return this.databaseConnection;
     }

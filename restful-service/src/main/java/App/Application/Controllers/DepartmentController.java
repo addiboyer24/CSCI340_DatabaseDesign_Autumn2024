@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// URI uniform resource identifier
+// http://localhost:8080/Department/1 (GET)
+// http://localhost:8080/Department (POST) {}
+// http://localhost:8080/Department/1 (DELETE)
+
 @RestController()
 @RequestMapping("/Department")
 public class DepartmentController {
@@ -31,4 +36,20 @@ public class DepartmentController {
     public void create(@RequestBody() Department department){
         this.departmentRepository.create(department);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") String id){
+        this.departmentRepository.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    public void updateById(@PathVariable("id") String id, @RequestBody() Department department) throws Exception {
+        Department existingDepartment = this.departmentRepository.get(id);
+        existingDepartment.setName(department.getName());
+        existingDepartment.setManagerSsn(department.getManagerSsn());
+        existingDepartment.setStartDate(department.getStartDate());
+
+        this.departmentRepository.update(id, existingDepartment);
+    }
+
 }
