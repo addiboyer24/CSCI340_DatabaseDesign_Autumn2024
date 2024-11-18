@@ -1,2 +1,0 @@
-CourseId,CourseNumber,CourseName
-1,CSCI 340,Database Design
